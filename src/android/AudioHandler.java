@@ -151,7 +151,20 @@ public class AudioHandler extends CordovaPlugin {
            } catch (NumberFormatException nfe) {
                //no-op
            }
-        } else if (action.equals("getCurrentPositionAudio")) {
+        } else if (action.equals("setPan")) {
+			try {
+				this.setPan(args.getString(0), Float.parseFloat(args.getString(1)));
+			} catch (NumberFormatException nfe) {
+				//no-op
+			}
+		} else if (action.equals("setRate")) {
+			try {
+				this.setRate(args.getString(0), Float.parseFloat(args.getString(1)));
+			} catch (NumberFormatException nfe) {
+				//no-op
+			}
+		}
+		else if (action.equals("getCurrentPositionAudio")) {
             float f = this.getCurrentPositionAudio(args.getString(0));
             callbackContext.sendPluginResult(new PluginResult(status, f));
             return true;
@@ -486,6 +499,41 @@ public class AudioHandler extends CordovaPlugin {
           LOG.e(TAG3,"Unknown Audio Player " + id);
         }
     }
+
+	 /**
+     * Set the volume for an audio device
+     *
+     * @param id				The id of the audio player
+     * @param pan            	Ppan to adjust to -1.0f - 1.0f
+     */
+    public void setPan(String id, float pan) {
+        String TAG3 = "AudioHandler.setPan(): Error : ";
+
+        AudioPlayer audio = this.players.get(id);
+        if (audio != null) {
+            audio.setPan(pan);
+        } else {
+          LOG.e(TAG3,"Unknown Audio Player " + id);
+        }
+    }
+
+    /**
+     * Set the volume for an audio device
+     *
+     * @param id				The id of the audio player
+     * @param rate            	Rate to adjust to 0.5f - 2.0f
+     */
+    public void setRate(String id, float rate) {
+        String TAG3 = "AudioHandler.setRate(): Error : ";
+
+        AudioPlayer audio = this.players.get(id);
+        if (audio != null) {
+            audio.setRate(rate);
+        } else {
+          LOG.e(TAG3,"Unknown Audio Player " + id);
+        }
+    }
+
 
     private void onFirstPlayerCreated() {
         origVolumeStream = cordova.getActivity().getVolumeControlStream();

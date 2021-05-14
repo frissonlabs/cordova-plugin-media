@@ -310,6 +310,29 @@ BOOL keepAvAudioSessionAlwaysActive = NO;
     // don't care for any callbacks
 }
 
+- (void)setPan:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = command.callbackId;
+
+#pragma unused(callbackId)
+    NSString* mediaId = [command argumentAtIndex:0];
+    NSNumber* pan = [command argumentAtIndex:1 withDefault:[NSNumber numberWithFloat:0.0]];
+
+    if ([self soundCache] != nil) {
+        CDVAudioFile* audioFile = [[self soundCache] objectForKey:mediaId];
+        if (audioFile != nil) {
+            audioFile.pan = pan;
+            if (audioFile.player) {
+                audioFile.player.pan = [pan floatValue];
+            }
+
+            [[self soundCache] setObject:audioFile forKey:mediaId];
+        }
+    }
+
+    // don't care for any callbacks
+}
+
 - (void)setRate:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = command.callbackId;

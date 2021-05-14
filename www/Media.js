@@ -196,6 +196,13 @@ Media.prototype.setVolume = function (volume) {
 };
 
 /**
+ * Adjust the pan.
+ */
+ Media.prototype.setPan = function(pan) {
+    exec(null, null, "Media", "setPan", [this.id, pan]);
+};
+
+/**
  * Adjust the playback rate.
  */
 Media.prototype.setRate = function (rate) {
