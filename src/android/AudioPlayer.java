@@ -24,6 +24,7 @@ import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnErrorListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.media.MediaRecorder;
+import android.media.PlaybackParams;
 import android.os.Environment;
 
 import org.apache.cordova.LOG;
