@@ -223,6 +223,13 @@ Media.prototype.resumeRecord = function () {
 };
 
 /**
+ * Set pan of an autio file.
+ */
+ Media.prototype.setPan = function () {
+    Media.onStatus(this.id, Media.MEDIA_ERROR, 'Not supported');
+};
+
+/**
  * Set rate of an autio file.
  */
 Media.prototype.setRate = function () {
